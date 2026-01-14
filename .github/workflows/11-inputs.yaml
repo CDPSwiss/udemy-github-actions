@@ -21,13 +21,14 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    if: ${{!inputs.dry-run}}
-    environment: ${{inputs.target}}
     steps:
       - name: Build
         run: echo "Building from tag ${{inputs.tag}}"
   deploy:
     runs-on: ubuntu-latest
+    if: ${{!inputs.dry-run}}
+    environment: ${{inputs.target}}
+    needs: build
     steps:
       - name: Deploy
         run: echo 'Deploy to ${{inputs.target}}' 
